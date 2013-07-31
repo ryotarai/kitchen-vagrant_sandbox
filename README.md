@@ -1,8 +1,5 @@
 # <a name="title"></a> Kitchen::VagrantSandbox
 
-[![Build Status](https://travis-ci.org/opscode/kitchen-vagrant.png)](https://travis-ci.org/opscode/kitchen-vagrant)
-[![Code Climate](https://codeclimate.com/github/opscode/kitchen-vagrant.png)](https://codeclimate.com/github/opscode/kitchen-vagrant)
-
 A Test Kitchen Driver for Vagrant.
 
 This driver works by generating a single Vagrantfile for each instance in a
@@ -27,6 +24,27 @@ consider the [vagrant-wrapper][vagrant_wrapper] gem which helps manage both
 styles of Vagrant installations
 ([background details][vagrant_wrapper_background]).
 
+### Vagrant Sandbox (Sahara) Plugin
+
+This driver uses `vagrant sandbox status`, `vagrant sandbox on` and `vagrant sandbox rollback`.
+To use sandbox features, you should install sahara plugin:
+
+```
+$ vagrant plugin install sahara
+```
+
+### <a name="dependencies-berkshelf"></a> Vagrant Berkshelf Plugin
+
+If a Berksfile is present in your project's root directory, then this driver
+will check to ensure that the [vagrant-berkshelf][vagrant_berkshelf] plugin is
+installed.
+
+If your project doesn't use Berkshelf then this check will be skipped.
+
+**Note:** Prior to release 1.2.0, then name of the vagrant-berkshelf gem was
+berkshelf-vagrant. This driver no longer checks for the existance of
+berkshelf-vagrant, so upgrading this Vagrant plugin is recommended.
+
 ### <a name="dependencies-virtualization"></a> Virtualbox and/or VMware Fusion/Workstation
 
 Currently this driver supports VirtualBox and VMware Fusion/Workstation.
@@ -43,22 +61,19 @@ software from VMware and then must also purchase the Vagrant VMware plugin.
 
 [VMware Workstation][workstation_dl]
 
-
-### <a name="dependencies-berkshelf"></a> Vagrant Berkshelf Plugin
-
-If a Berksfile is present in your project's root directory, then this driver
-will check to ensure that the [vagrant-berkshelf][vagrant_berkshelf] plugin is
-installed.
-
-If your project doesn't use Berkshelf then this check will be skipped.
-
-**Note:** Prior to release 1.2.0, then name of the vagrant-berkshelf gem was
-berkshelf-vagrant. This driver no longer checks for the existance of
-berkshelf-vagrant, so upgrading this Vagrant plugin is recommended.
-
 ## <a name="installation"></a> Installation and Setup
 
 Please read the [Driver usage][driver_usage] page for more details.
+
+## Usage
+
+### Destroy Vagrant VM
+
+With this plugin, `kitchen destroy` doesn't executes `vagrant destroy` but executes `vagrant sandbox rollback`.
+If you would like to destroy vagrant VM, please set `KITCHEN_DESTROY_VM` env variable:
+```
+KITCHEN_DESTROY_VM=1 kitchen destroy [(all|<REGEX>)] [opts]
+```
 
 ## <a name="default-config"></a> Default Configuration
 
