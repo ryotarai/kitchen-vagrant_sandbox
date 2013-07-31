@@ -20,7 +20,7 @@ require 'fileutils'
 require 'rubygems/version'
 
 require 'kitchen'
-require 'kitchen/vagrant/vagrantfile_creator'
+require 'kitchen/vagrant_sandbox/vagrantfile_creator'
 
 module Kitchen
 
@@ -32,7 +32,7 @@ module Kitchen
     #
     # @todo Vagrant installation check and version will be placed into any
     #   dependency hook checks when feature is released
-    class Vagrant < Kitchen::Driver::SSHBase
+    class VagrantSandbox < Kitchen::Driver::SSHBase
 
       default_config :customize, { :memory => '256' }
       default_config :synced_folders, {}

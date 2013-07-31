@@ -18,7 +18,7 @@
 
 module Kitchen
 
-  module Vagrant
+  module VagrantSandbox
 
     # Class to render Vagrantfiles to be used by the Kitchen Vagrant driver.
     #

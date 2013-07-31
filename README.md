@@ -1,4 +1,4 @@
-# <a name="title"></a> Kitchen::Vagrant
+# <a name="title"></a> Kitchen::VagrantSandbox
 
 [![Build Status](https://travis-ci.org/opscode/kitchen-vagrant.png)](https://travis-ci.org/opscode/kitchen-vagrant)
 [![Code Climate](https://codeclimate.com/github/opscode/kitchen-vagrant.png)](https://codeclimate.com/github/opscode/kitchen-vagrant)
@@ -263,17 +263,18 @@ example:
 
 ## <a name="authors"></a> Authors
 
-Created and maintained by [Fletcher Nichol][author] (<fnichol@nichol.ca>)
+Created and maintained by [Ryota Arai][author] (<ryota.arai@gmail.com>)
+Originally created and maintained by [Fletcher Nichol][author] (<fnichol@nichol.ca>)
 
 ## <a name="license"></a> License
 
 Apache 2.0 (see [LICENSE][license])
 
 
-[author]:           https://github.com/opscode
-[issues]:           https://github.com/opscode/kitchen-vagrant/issues
-[license]:          https://github.com/opscode/kitchen-vagrant/blob/master/LICENSE
-[repo]:             https://github.com/opscode/kitchen-vagrant
+[author]:           https://github.com/ryotarai
+[issues]:           https://github.com/ryotarai/kitchen-vagrant_sandbox/issues
+[license]:          https://github.com/ryotarai/kitchen-vagrant_sandbox/blob/master/LICENSE
+[repo]:             https://github.com/ryotarai/kitchen-vagrant_sandbox
 [driver_usage]:     http://docs.kitchen-ci.org/drivers/usage
 [chef_omnibus_dl]:  http://www.opscode.com/chef/install/
 
