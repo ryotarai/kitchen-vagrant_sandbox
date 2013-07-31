@@ -279,6 +279,7 @@ example:
 ## <a name="authors"></a> Authors
 
 Created and maintained by [Ryota Arai][author] (<ryota.arai@gmail.com>)
+
 Originally created and maintained by [Fletcher Nichol][author] (<fnichol@nichol.ca>)
 
 ## <a name="license"></a> License
