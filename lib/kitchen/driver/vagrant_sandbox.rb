@@ -49,11 +49,18 @@ module Kitchen
 
       def create(state)
         create_vagrantfile
-        cmd = "vagrant up --no-provision"
-        cmd += " --provider=#{@config[:provider]}" if @config[:provider]
-        run cmd
-        set_ssh_state(state)
-        info("Vagrant instance #{instance.to_str} created.")
+        if sandbox_on?
+          sandbox_rollback
+          set_ssh_state(state)
+          info("Vagrant instance #{instance.to_str} created (by rollback).")
+        else
+          cmd = "vagrant up --no-provision"
+          cmd += " --provider=#{@config[:provider]}" if @config[:provider]
+          run cmd
+          set_ssh_state(state)
+          sandbox_on
+          info("Vagrant instance #{instance.to_str} created.")
+        end
       end
 
       def converge(state)
@@ -76,14 +83,20 @@ module Kitchen
       end
 
       def destroy(state)
-        return if state[:hostname].nil?
+        if ENV['KITCHEN_DESTROY_VM']
+          create_vagrantfile
+          @vagrantfile_created = false
+          run "vagrant destroy -f"
+          FileUtils.rm_rf(vagrant_root)
+          info("Vagrant instance #{instance.to_str} destroyed.")
+          state.delete(:hostname)
+        else
+          return if state[:hostname].nil?
 
-        create_vagrantfile
-        @vagrantfile_created = false
-        run "vagrant destroy -f"
-        FileUtils.rm_rf(vagrant_root)
-        info("Vagrant instance #{instance.to_str} destroyed.")
-        state.delete(:hostname)
+          sandbox_rollback
+          info("Vagrant instance #{instance.to_str} rollbacked.")
+          state.delete(:hostname)
+        end
       end
 
       def verify_dependencies
@@ -123,9 +136,12 @@ module Kitchen
         run_command(cmd, { :cwd => vagrant_root }.merge(options))
       end
 
-      def silently_run(cmd)
-        run_command(cmd,
-          :live_stream => nil, :quiet => logger.debug? ? false : true)
+      def silently_run(cmd, options = {})
+        options = {
+          :live_stream => nil, 
+          :quiet => logger.debug? ? false : true,
+        }.merge(options)
+        run_command(cmd, options)
       end
 
       def vagrant_root
@@ -145,7 +161,7 @@ module Kitchen
       end
 
       def creator
-        Kitchen::Vagrant::VagrantfileCreator.new(instance, config)
+        Kitchen::VagrantSandbox::VagrantfileCreator.new(instance, config)
       end
 
       def set_ssh_state(state)
@@ -191,6 +207,34 @@ module Kitchen
               " `vagrant plugin install vagrant-berkshelf' and retry."
           end
         end
+      end
+
+      def check_sandbox_plugin_installed
+        unless silently_run('vagrant help', returns: 0..1) =~ /^\s{5}sandbox$/
+          raise UserError, <<-EOS
+Vagrant sandbox plugin is not installed.
+You can install the plugin by `vagrant plugin install sahara`.
+          EOS
+        end
+      end
+
+      def sandbox_on?
+        check_sandbox_plugin_installed
+        return true if run('vagrant sandbox status') =~ /Sandbox\ mode\ is\ on/
+        false
+      end
+
+      def sandbox_on
+        check_sandbox_plugin_installed
+        run 'vagrant sandbox on'
+      end
+
+      def sandbox_rollback
+        check_sandbox_plugin_installed
+        unless sandbox_on?
+          raise UserError, "sandbox mode is not on"
+        end
+        run 'vagrant sandbox rollback'
       end
     end
   end
