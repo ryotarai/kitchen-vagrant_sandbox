@@ -87,7 +87,11 @@ module Kitchen
       def chef_block(arr)
         arr << %{  c.vm.provision :chef_solo do |chef|}
         arr << %{    chef.log_level = #{vagrant_logger_level}}
-        arr << %{    chef.run_list = #{instance.run_list.inspect}}
+        if config[:vagrant_provision_run_list]
+          arr << %{    chef.run_list = #{config[:vagrant_provision_run_list].inspect}}
+        else
+          arr << %{    chef.run_list = #{instance.run_list.inspect}}
+        end
         arr << %{    chef.json = #{instance.attributes.to_s}}
         if instance.suite.data_bags_path
           arr << %{    chef.data_bags_path = "#{instance.suite.data_bags_path}"}
