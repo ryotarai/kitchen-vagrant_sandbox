@@ -93,7 +93,8 @@ module Kitchen
           FileUtils.rm_rf(vagrant_root)
           info("Vagrant instance #{instance.to_str} destroyed.")
           state.delete(:hostname)
-#        else
+        else
+          info "If you would like to destroy vagrant VM, run `KITCHEN_DESTROY_VM=1 kitchen destroy <REGEX>`"
 #          return if state[:hostname].nil?
 #
 #          sandbox_rollback
