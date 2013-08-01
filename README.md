@@ -2,6 +2,8 @@
 
 A Test Kitchen Driver for Vagrant.
 
+This is a fork version of Kitchen::Vagrant driver.
+
 This driver works by generating a single Vagrantfile for each instance in a
 sandboxed directory. Since the Vagrantfile is written out on disk, Vagrant
 needs absolutely no knowledge of Test Kitchen. So no Vagrant plugin gem is
@@ -278,7 +280,7 @@ example:
 
 ## <a name="authors"></a> Authors
 
-Created and maintained by [Ryota Arai][author] (<ryota.arai@gmail.com>)
+Modified by [Ryota Arai][author] (<ryota.arai@gmail.com>)
 
 Originally created and maintained by [Fletcher Nichol][author] (<fnichol@nichol.ca>)
 

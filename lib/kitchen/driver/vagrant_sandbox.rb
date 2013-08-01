@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
 #
+# Modified version by Ryota Arai (<ryota.arai@gmail.com>)
+#
 # Author:: Fletcher Nichol (<fnichol@nichol.ca>)
 #
 # Copyright (C) 2012, Fletcher Nichol
