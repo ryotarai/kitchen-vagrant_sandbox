@@ -7,8 +7,8 @@ Gem::Specification.new do |gem|
   gem.name          = "kitchen-vagrant_sandbox"
   gem.version       = Kitchen::Driver::VAGRANT_VERSION
   gem.license       = 'Apache 2.0'
-  gem.authors       = ["Ryota Arai"]
-  gem.email         = ["ryota.arai@gmail.com"]
+  gem.authors       = ["Ryota Arai", "Fletcher Nichol"]
+  gem.email         = ["ryota.arai@gmail.com", "fnichol@nichol.ca"]
   gem.description   = "Kitchen::Driver::VagrantSandbox - A Vagrant Driver with sandbox for Test Kitchen."
   gem.summary       = gem.description
   gem.homepage      = "https://github.com/ryotarai/kitchen-vagrant_sandbox/"
