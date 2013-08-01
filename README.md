@@ -220,6 +220,10 @@ be used.
 
 The default is unset, or `nil`.
 
+### vagrant\_provision\_run\_list
+
+### do\_not\_vagrant\_provision\_in\_converge
+
 ### <a name="config-use-vagrant-berkshelf-plugin"></a> use_vagrant_berkshelf_plugin
 
 Determines whether or not this driver will use the vagrant-berkself Vagrant
