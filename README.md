@@ -2,7 +2,7 @@
 
 A Test Kitchen Driver for Vagrant.
 
-This is a fork version of Kitchen::Vagrant driver.
+**This is a fork version of [Kitchen::Vagrant driver][original_repo].**
 
 This driver works by generating a single Vagrantfile for each instance in a
 sandboxed directory. Since the Vagrantfile is written out on disk, Vagrant
@@ -293,6 +293,7 @@ Apache 2.0 (see [LICENSE][license])
 [issues]:           https://github.com/ryotarai/kitchen-vagrant_sandbox/issues
 [license]:          https://github.com/ryotarai/kitchen-vagrant_sandbox/blob/master/LICENSE
 [repo]:             https://github.com/ryotarai/kitchen-vagrant_sandbox
+[original_repo]:    https://github.com/opscode/kitchen-vagrant
 [driver_usage]:     http://docs.kitchen-ci.org/drivers/usage
 [chef_omnibus_dl]:  http://www.opscode.com/chef/install/
 
