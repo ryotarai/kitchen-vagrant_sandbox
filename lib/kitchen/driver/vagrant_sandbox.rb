@@ -56,7 +56,8 @@ module Kitchen
           set_ssh_state(state)
           info("Vagrant instance #{instance.to_str} created (by rollback).")
         else
-          cmd = "vagrant up --no-provision"
+          cmd = "vagrant up"
+          cmd += " --no-provision" unless config[:use_vagrant_provision]
           cmd += " --provider=#{@config[:provider]}" if @config[:provider]
           run cmd
           set_ssh_state(state)
