@@ -93,12 +93,12 @@ module Kitchen
           FileUtils.rm_rf(vagrant_root)
           info("Vagrant instance #{instance.to_str} destroyed.")
           state.delete(:hostname)
-        else
-          return if state[:hostname].nil?
-
-          sandbox_rollback
-          info("Vagrant instance #{instance.to_str} rollbacked.")
-          state.delete(:hostname)
+#        else
+#          return if state[:hostname].nil?
+#
+#          sandbox_rollback
+#          info("Vagrant instance #{instance.to_str} rollbacked.")
+#          state.delete(:hostname)
         end
       end
 
