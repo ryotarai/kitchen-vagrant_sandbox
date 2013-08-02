@@ -201,25 +201,24 @@ module Kitchen
             " Please upgrade to version #{MIN_VER} or higher from #{WEBSITE}."
         end
       end
+      
+      def check_plugin_installed(plugin)
+        plugins = silently_run("vagrant plugin list").split("\n")
+        if ! plugins.find { |p| p =~ /^#{plugin}\b/ }
+          raise UserError, "Detected a Berksfile but the #{plugin}" +
+            " plugin was not found in Vagrant. Please run:" +
+            " `vagrant plugin install #{plugin}' and retry."
+        end
+      end
 
       def check_berkshelf_plugin
         if File.exists?(File.join(config[:kitchen_root], "Berksfile"))
-          plugins = silently_run("vagrant plugin list").split("\n")
-          if ! plugins.find { |p| p =~ /^vagrant-berkshelf\b/ }
-            raise UserError, "Detected a Berksfile but the vagrant-berkshelf" +
-              " plugin was not found in Vagrant. Please run:" +
-              " `vagrant plugin install vagrant-berkshelf' and retry."
-          end
+          check_plugin_installed("vagrant-berkshelf")
         end
       end
 
       def check_sandbox_plugin_installed
-        unless silently_run('vagrant help', returns: 0..1) =~ /^\s{5}sandbox$/
-          raise UserError, <<-EOS
-Vagrant sandbox plugin is not installed.
-You can install the plugin by `vagrant plugin install sahara`.
-          EOS
-        end
+        check_plugin_installed("sahara")
       end
 
       def sandbox_on?
