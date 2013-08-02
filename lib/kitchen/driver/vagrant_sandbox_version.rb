@@ -22,7 +22,7 @@ module Kitchen
 
   module Driver
 
-    # Version string for Vagrant Kitchen driver
-    VAGRANT_VERSION = "0.0.1"
+    # Version string for Vagrant Sandbox Kitchen driver
+    VAGRANT_VERSION = "0.1.0"
   end
 end
